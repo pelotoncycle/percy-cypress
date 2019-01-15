@@ -36,7 +36,6 @@
     "typescript": "^3.0.3"
   },
   "dependencies": {
-    "@percy/agent": "^0.1.2",
-    "axios": "^0.18.0"
+    "@percy/agent": "^0.1.2"
   }
 }
