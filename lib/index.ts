@@ -33,6 +33,7 @@ Cypress.Commands.add('percySnapshot', (name: string, options: any = {}) => {
       return cy.request({
         method: 'POST',
         url: `http://localhost:${percyAgentClient.port}/percy/snapshot`,
+        failOnStatusCode: false,
         body: {
           name,
           url: doc.URL,
