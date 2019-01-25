@@ -6,21 +6,19 @@ declare const Cypress: any
 declare const cy: any
 
 export declare namespace Cypress {
-  interface Chainable {
+  interface Chainable<Subject> {
     /**
      * Take a snapshot in Percy
      * @see https://github.com/percy/percy-cypress
      * @example
-     * ```
-     * cy.percySnapshot(name: 'home page')
-     * cy.percySnapshot(name: 'home page', {widths: [1280, 1960]})
-     * ```
+     *    cy.percySnapshot(name: 'home page')
+     *    cy.percySnapshot(name: 'home page', {widths: [1280, 1960]})
      */
-    percySnapshot(name: string, options: SnapshotOptions): Chainable
+    percySnapshot(name: string, options: SnapshotOptions): Chainable<Subject>
   }
 }
 
-Cypress.Commands.add('percySnapshot', (name: string, options: SnapshotOptions = {}) => {
+export const percySnapshot = (name: string, options: SnapshotOptions = {}) => {
   const percyAgentClient = new PercyAgent({
     clientInfo: clientInfo(),
     environmentInfo: environmentInfo()
@@ -32,4 +30,6 @@ Cypress.Commands.add('percySnapshot', (name: string, options: SnapshotOptions = 
     options.document = doc
     percyAgentClient.snapshot(name, options)
   })
-})
+}
+
+Cypress.Commands.add('percySnapshot', percySnapshot)
